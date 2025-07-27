@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Question {{ index }} of {{ total }}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="toggle-container">
+      <button onclick="toggleDarkMode()" class="toggle-btn">
+        🌓 Toggle Dark Mode
+      </button>
+    </div>
+
+    <div class="container">
+      <h2>Question {{ index }} of {{ total }}</h2>
+      <p class="difficulty">Difficulty: {{ difficulty | capitalize }}</p>
+      <p class="category">Category: {{ category_name }}</p>
+
+      <!-- Progress bar -->
+      <div class="progress-container">
+        <div
+          class="progress-bar"
+          style="width: {{ (index / total) * 100 }}%"
+        ></div>
+      </div>
+
+      <p class="question-text">{{ question.question }}</p>
+      <form method="post">
+        {% for choice in question.choices %}
+        <label class="option">
+          <input type="radio" name="answer" value="{{ choice }}" required />
+          {{ choice }} </label
+        ><br />
+        {% endfor %}
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>

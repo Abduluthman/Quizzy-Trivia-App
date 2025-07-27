@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Trivia Quiz</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="toggle-container">
+      <button onclick="toggleDarkMode()" class="toggle-btn">
+        🌓 Toggle Dark Mode
+      </button>
+    </div>
+
+    <div class="container">
+      <h1>Welcome to the Trivia Quiz</h1>
+      <p>Test your knowledge with 10 multiple-choice questions.</p>
+
+      <form action="/question" method="post">
+        <div class="form-section">
+          <label for="difficulty">Choose difficulty:</label>
+          <select name="difficulty" id="difficulty" class="dropdown" required>
+            <option value="">Select</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+
+        <div class="form-section">
+          <label for="category">Choose category:</label>
+          <select name="category" id="category" class="dropdown">
+            <option value="">Any Category</option>
+            {% for cat in categories %}
+            <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <button type="submit" class="btn full-width">🎮 Start Quiz</button>
+      </form>
+
+      <hr class="divider" />
+      <div class="button-container">
+        <a href="/leaderboard" class="btn secondary full-width"
+          >🏅 View Leaderboard</a
+        >
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
